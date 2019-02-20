@@ -48,10 +48,10 @@ export default {
   margin-top: 30px;
 }
 .element {
-  height: 100%;
-  width: 80%;
   border: 1px solid rgba(207, 205, 207, 0.89);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  margin: 30px;
+
 }
 .imgElement {
   height: 150px;

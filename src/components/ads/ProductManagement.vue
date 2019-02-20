@@ -1,33 +1,11 @@
 <template>
   <v-container>
-    <div class="text-xs-center">
-      <v-dialog
-        v-model="showSpinner"
-        width="500"
-      >
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Messages
-          </v-card-title>
-
-          <v-card-text>
-            Please wait, loading data
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </div>
     <v-form
-      v-model="valid"
       ref="form"
-      validation
     >
       <v-layout row>
         <v-flex xs6>
           <v-text-field
-            :rules="nameRules"
             :counter="6"
             v-model="productName"
             label="Product Name"
@@ -38,7 +16,6 @@
 
         <v-flex xs6>
           <v-text-field
-            :rules="priceRules"
             :counter="6"
             v-model="price"
             label="Price"
@@ -53,7 +30,6 @@
       <v-layout row>
         <v-flex xs6>
           <v-text-field
-            :rules="DescRules"
             :counter="10"
             v-model="description"
             label="Product Description (options)"
@@ -66,7 +42,6 @@
 
         <v-flex xs4>
           <v-text-field
-            :rules="imgRules"
             label="Press the button(URL--->)"
             outline
             class="ml-3"
@@ -84,17 +59,22 @@
       <v-btn
         class="info"
         @click="adNewProd"
-        :disabled="!valid"
+        :disabled="disabled"
       >Add products</v-btn>
+      <v-progress-linear 
+        :indeterminate="true" 
+        v-show='showSpinner'
+      ></v-progress-linear>
       <br><br>
       <hr class="mb-3">
     </v-form>
+    
     <v-layout row>
       <v-flex xs1></v-flex>
       <v-flex xs3>Name</v-flex>
       <v-flex xs5>Description</v-flex>
       <v-flex xs2>Price</v-flex>
-      <v-flex xs1></v-flex>
+      <v-flex xs1>Delete</v-flex>
     </v-layout>
     <hr class="mt-3">
     <v-layout
@@ -115,9 +95,10 @@
       <v-flex xs2>{{ad.price}}</v-flex>
       <v-flex
         xs1
-        class="btnRemove"
+      ><v-icon
         @click="removeElem(index)"
-      >Remove</v-flex>
+        class="ml-2"
+      >delete</v-icon> </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -125,37 +106,28 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+
   computed: {
     ...mapState({
       ads: state => state.ads.list,
       showSpinner: state => state.ads.showSpinner,
     }),
+     disabled() {
+      return !this.productName || !this.price ||!this.description || !this.imgUrl;
+    },
   },
+  
   data() {
     return {
-      dialog: true,
       valid: false,
       productName: '',
       price: '',
       description: '',
       imgUrl: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 6 || 'Name must be less than 6 characters',
-      ],
-      priceRules: [
-        v => !!v || 'Price is required',
-        v => v.length <= 6 || 'Price must be less than 6 characters',
-      ],
-      DescRules: [
-        v => !!v || 'Descriptions is required',
-        v => v.length <= 10 || 'Descriptions must be less than 10 characters',
-      ],
-      imgRules: [v => !!v || 'Descriptions is required'],
     };
   },
   methods: {
-    ...mapActions(['createProduct', 'removeEl']),
+...mapActions(['createProduct', 'removeEl','getProducts']),
     clearFormFields() {
       this.productName = '';
       this.price = '';
@@ -171,8 +143,8 @@ export default {
           imgUrl: this.imgUrl,
         };
         this.createProduct(obj);
-        this.clearFormFields();
       }
+      this.clearFormFields();
     },
     removeElem(index) {
       this.removeEl(index);
@@ -180,9 +152,10 @@ export default {
 
     addImgLink() {
       this.imgUrl =
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXcGGTj47a2tj9QYE_6xadmcQ2ymadul2mBhTMTI8L8GrPxFw';
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd7_9cWHr_Ye4s-4zx_Kk0BVC4yY22MiiDXsBwVjvxWsM2OQW3Vw';
     },
   },
+ 
 };
 </script>
 <style scoped>

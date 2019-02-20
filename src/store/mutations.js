@@ -17,7 +17,6 @@ export default {
   [types.CREATE_PRODUCT_SUCCESS] (state, payload) {
     state.list.push(payload)
     state.showSpinner = false
-    console.log(payload)
   },
   [types.CREATE_PRODUCT_FAILURE] (state, payload) {
     state.showSpinner = false

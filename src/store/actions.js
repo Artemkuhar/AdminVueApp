@@ -25,7 +25,7 @@ export const getProducts = ({ commit }, payload) => {
       }
     ]
     commit(types.GET_PRDUCTS_SUCCESS, data)
-  }, 2000)
+  }, 500)
 };
 
 export const createProduct = ({ commit }, payload) => {

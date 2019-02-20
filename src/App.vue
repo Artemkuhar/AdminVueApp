@@ -23,10 +23,19 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app>
-      <v-toolbar-title
+      <v-btn
+      to="/"
+      flat: false
+      outline
+      color="white"
+      class="btn-title"
+      >
+        <v-toolbar-title
         id='title'
         class="mr-4"
-      >Jayway</v-toolbar-title>
+        >Jayway</v-toolbar-title>
+      </v-btn>
+      
 
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -53,7 +62,7 @@ export default {
     return {
       drawer: false,
       links: [
-        { title: 'Home', icon: 'grade', url: '/Home' },
+        { title: 'Home', icon: 'grade', url: 'Home' },
         { title: 'Manage Products', icon: 'grade', url: 'ManageProducts' },
       ],
     };
@@ -66,6 +75,9 @@ export default {
 };
 </script>
 <style scoped>
+.btn-title{
+  border: 0px;
+}
 #title {
   color: #1e90ff;
   cursor: pointer;
