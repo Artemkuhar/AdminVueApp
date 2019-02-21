@@ -6,18 +6,17 @@
       <v-layout row>
         <v-flex xs6>
           <v-text-field
-            :counter="6"
-            v-model="productName"
-            label="Product Name"
+            v-model="itemName"
+            label="Name"
             outline
             class="mr-3"
+            required
           ></v-text-field>
         </v-flex>
 
         <v-flex xs6>
           <v-text-field
-            :counter="6"
-            v-model="price"
+            v-model="itemPrice"
             label="Price"
             outline
             class="ml-3"
@@ -30,9 +29,8 @@
       <v-layout row>
         <v-flex xs6>
           <v-text-field
-            :counter="10"
-            v-model="description"
-            label="Product Description (options)"
+            v-model="itemDescription"
+            label="Description"
             outline
             class="mr-3"
             upload
@@ -46,7 +44,7 @@
             outline
             class="ml-3"
             upload
-            v-model='imgUrl'
+            v-model='itemImgUrl'
             required
             readonly
           ></v-text-field>
@@ -60,46 +58,39 @@
         class="info"
         @click="adNewProd"
         :disabled="disabled"
-      >Add products</v-btn>
+      >Add new item</v-btn>
       <v-progress-linear 
         :indeterminate="true" 
         v-show='showSpinner'
       ></v-progress-linear>
       <br><br>
-      <hr class="mb-3">
     </v-form>
-    
-    <v-layout row>
-      <v-flex xs1></v-flex>
-      <v-flex xs3>Name</v-flex>
-      <v-flex xs5>Description</v-flex>
-      <v-flex xs2>Price</v-flex>
-      <v-flex xs1>Delete</v-flex>
-    </v-layout>
-    <hr class="mt-3">
-    <v-layout
-      row
-      v-for="(ad, index) of ads"
-      :key="ad.name"
-      class="ProductList"
+    <hr class="mb-3">
+    <div class="header-table">
+      <div 
+      class="header"
+       v-for="header in headers"
+      :key="header"
+      >
+      <p class="header-name">{{header}}</p>
+      </div>
+    </div>
+    <hr class="mb-3">
+    <div 
+    class="listItem"
+    v-for="(item, index) of ads"
+    :key="item"
     >
-      <v-img
-        :src="ad.imgUrl"
-        height="50px"
-        width="50px"
-        xs1
-        class="imgPord"
-      ></v-img>
-      <v-flex xs3>{{ad.name}}</v-flex>
-      <v-flex xs5>{{ad.description}}</v-flex>
-      <v-flex xs2>{{ad.price}}</v-flex>
-      <v-flex
-        xs1
-      ><v-icon
+      <div class="item"><img :src="item.imgUrl" alt="item Photo"></div>
+      <div class="item">{{item.name}}</div>
+      <div class="item">{{item.description}}</div>
+      <div class="item">{{item.price}}</div>
+      <v-icon
+      size="25"
         @click="removeElem(index)"
-        class="ml-2"
-      >delete</v-icon> </v-flex>
-    </v-layout>
+        class="item"
+      >delete</v-icon>
+    </div>
   </v-container>
 </template>
 <script>
@@ -113,37 +104,35 @@ export default {
       showSpinner: state => state.ads.showSpinner,
     }),
      disabled() {
-      return !this.productName || !this.price ||!this.description || !this.imgUrl;
+      return !this.itemName || !this.itemPrice ||!this.itemDescription || !this.itemImgUrl;
     },
   },
   
   data() {
     return {
-      valid: false,
-      productName: '',
-      price: '',
-      description: '',
-      imgUrl: '',
+      headers:['Photo', 'Name', 'Descriptions', 'Price', 'Delete'],
+      itemName: '',
+      itemPrice: '',
+      itemDescription: '',
+      itemImgUrl: '',
     };
   },
   methods: {
 ...mapActions(['createProduct', 'removeEl','getProducts']),
     clearFormFields() {
-      this.productName = '';
-      this.price = '';
-      this.description = '';
-      this.imgUrl = '';
+      this.itemName = '';
+      this.itemPrice = '';
+      this.itemDescription = '';
+      this.itemImgUrl = '';
     },
     adNewProd() {
-      if (this.$refs.form.validate()) {
-        const obj = {
-          name: this.productName,
-          price: this.price,
-          description: this.description,
-          imgUrl: this.imgUrl,
-        };
-        this.createProduct(obj);
-      }
+      const obj = {
+        name: this.itemName,
+        price: this.itemPrice,
+        description: this.itemDescription,
+        imgUrl: this.itemImgUrl,
+      };
+      this.createProduct(obj);
       this.clearFormFields();
     },
     removeElem(index) {
@@ -151,38 +140,52 @@ export default {
     },
 
     addImgLink() {
-      this.imgUrl =
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd7_9cWHr_Ye4s-4zx_Kk0BVC4yY22MiiDXsBwVjvxWsM2OQW3Vw';
+      this.itemImgUrl =
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT';
     },
   },
  
 };
 </script>
 <style scoped>
-.ProductList {
-  border-top: 1px;
+.btnBrowse {
+  height: 45px;
+  width: 70px;
+  border: 1px solid #ccc;
+}
+.header,
+.item
+{
+  width: 20%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.header-table,
+.listItem
+{
+  display: flex;
+  flex-direction: row;
+  min-width: 500px;
+}
+.listItem{
+  height: 120px;
+   border-top: 1px;
   border-bottom: 1px;
   border-left: 0px;
   border-right: 0px;
   border-style: solid;
   border-color: #ccc;
-  margin: 10px 0 10px;
-  line-height: 50px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  line-height: 120px;
 }
-.imgPord {
-  margin-right: 5px;
+.item{
+  font-weight: normal;
 }
-.btnBrowse {
-  height: 50px;
-  width: 70px;
-  border: 1px solid #ccc;
+img{
+  width: 100%;
+  height: 100%;
 }
-.btnRemove {
-  color: #1e90ff;
-  cursor: pointer;
-}
+
 </style>
 
 
