@@ -85,11 +85,13 @@
       <div class="item">{{item.name}}</div>
       <div class="item">{{item.description}}</div>
       <div class="item">{{item.price}}</div>
-      <v-icon
-      size="25"
-        @click="removeElem(index)"
-        class="item"
-      >delete</v-icon>
+      <div class="item">
+          <v-icon
+            size="25"
+            @click="removeElem(index)"
+        >delete</v-icon>
+      </div>
+       
     </div>
   </v-container>
 </template>
@@ -169,14 +171,17 @@ export default {
   min-width: 500px;
 }
 .listItem{
-  height: 120px;
-   border-top: 1px;
+  height: 130px;
+  border-top: 1px;
   border-bottom: 1px;
   border-left: 0px;
   border-right: 0px;
   border-style: solid;
   border-color: #ccc;
   line-height: 120px;
+}
+.listItem:hover{
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .item{
   font-weight: normal;

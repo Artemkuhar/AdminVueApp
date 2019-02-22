@@ -15,7 +15,8 @@ export default {
     state.showSpinner = true
   },
   [types.CREATE_PRODUCT_SUCCESS] (state, payload) {
-    state.list.push(payload)
+    payload.value = '3'
+    state.list.unshift(payload)
     state.showSpinner = false
   },
   [types.CREATE_PRODUCT_FAILURE] (state, payload) {

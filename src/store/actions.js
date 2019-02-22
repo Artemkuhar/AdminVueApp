@@ -26,7 +26,7 @@ export const getProducts = ({ commit }, payload) => {
     ]
     commit(types.GET_PRDUCTS_SUCCESS, data)
   }, 500)
-};
+}
 
 export const createProduct = ({ commit }, payload) => {
   commit(types.CREATE_PRODUCT)
@@ -37,11 +37,11 @@ export const createProduct = ({ commit }, payload) => {
     }
     commit(types.CREATE_PRODUCT_SUCCESS, data)
   }, 1000)
-};
+}
 
 export const removeEl = ({ commit }, index) => {
   commit(types.REMOVE_PRODUCT)
   setTimeout(() => {
     commit(types.REMOVE_PRODUCT_SUCCESS, index)
   }, 2000)
-};
+}

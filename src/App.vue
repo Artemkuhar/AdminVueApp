@@ -1,5 +1,7 @@
 <template>
-  <v-app>
+  <v-app
+  >
+  <div class='backgroundImg'></div>
     <v-navigation-drawer
       app
       right
@@ -50,7 +52,9 @@
         <v-icon>arrow_drop_down</v-icon>
       </v-toolbar-side-icon>
     </v-toolbar>
-    <v-content>
+    <v-content
+    class='contend'
+    >
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -81,5 +85,14 @@ export default {
 #title {
   color: #1e90ff;
   cursor: pointer;
+}
+.backgroundImg{
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ZUzzZoix0JlvDhneCWfi8qxdmN7VA_bdPSp0wDjgYhTg6I8HHw);
+width: 100%;
+height: 100%;
+background-repeat: no-repeat;
+background-size: 100%;
+opacity: 0.15;
+position: absolute;
 }
 </style>
