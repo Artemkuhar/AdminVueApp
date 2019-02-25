@@ -1,11 +1,21 @@
 <template>
 <v-container>
     <p class="page-title">Jayway Сollection </p>
-    <div class="cart">
+    <div 
+    class="basket"
+    @click="sendItem()"
+    >
+      <v-btn
+      to="/basket"
+      outline
+      class="basket-btn"
+      flat: false
+      >
        <v-icon
-            size="45"
+        size="45"
         >delete</v-icon>
-        <span class="cart-counter">({{selectItem.length}})</span>
+        <span class="basket-counter">({{selectItem.length}})</span>
+      </v-btn>
     </div>
     <div class="catalog">
       <div 
@@ -26,7 +36,7 @@
         ></v-rating>
         <v-checkbox
         class="AddItem"
-        label="Add to Cart"
+        label="Add to basket"
         :value="item"
         v-model="selectItem"
         ></v-checkbox>
@@ -35,7 +45,7 @@
   </v-container>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   data(){
     return{
@@ -48,13 +58,27 @@ export default {
       ads: state => state.ads.list,
     }),
   },
+  methods: {
+  ...mapActions(['sendSelectItem']),
+    sendItem() {
+      this.sendSelectItem(this.selectItem)
+    },
+  },
 };
 </script>
 <style scoped>
-.cart{
+
+.basket{
   position: fixed;
   top: 100px;
   left: 40px;
+  cursor: pointer;
+}
+.basket-btn{
+  border: 0px;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
 }
 .AddItem{
   position: absolute;
@@ -65,6 +89,7 @@ export default {
   text-align: center;
   font-size: 38px;
   color: #1e90ff;
+  font-weight: 400;
 }
 .catalog{
   display: flex;
@@ -101,7 +126,7 @@ img{
   font-weight: 500;
   margin-left: 20px;
 }
-.cart-counter{
+.basket-counter{
   font-size: 20px;
   font-weight: 500;
 }

@@ -66,8 +66,8 @@ export default {
     return {
       drawer: false,
       links: [
-        { title: 'Home', icon: 'grade', url: 'Home' },
-        { title: 'Manage Products', icon: 'grade', url: 'ManageProducts' },
+        { title: 'Home', icon: 'grade', url: 'home' },
+        { title: 'Management', icon: 'grade', url: 'management' },
       ],
     };
   },

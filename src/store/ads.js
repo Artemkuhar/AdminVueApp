@@ -5,6 +5,7 @@ export default {
   state: {
     showSpinner: false,
     errorMesage: '',
+    selectItems: [],
     list: [
       {
         name: 'SmartTV',
@@ -28,63 +29,63 @@ export default {
         value: 5
       },
       {
-        name: 'iMac',
+        name: 'iMac1',
         price: '1800',
         description: "27''",
         imgUrl: src.imgUrl2,
         value: 3
       },
       {
-        name: 'SmartTV',
+        name: 'SmartTV1',
         price: '1000',
         description: '42"',
         imgUrl: src.imgUrl1,
         value: 2
       },
       {
-        name: 'iPhone',
+        name: 'iPhone1',
         price: '500',
         description: '6S',
         imgUrl: src.imgUrl3,
         value: 1
       },
       {
-        name: 'SmartTV',
+        name: 'SmartTV2',
         price: '1000',
         description: '42"',
         imgUrl: src.imgUrl1,
         value: 3
       },
       {
-        name: 'iMac',
+        name: 'iMac2',
         price: '1800',
         description: "27''",
         imgUrl: src.imgUrl2,
         value: 5
       },
       {
-        name: 'iPhone',
+        name: 'iPhone2',
         price: '500',
         description: '6S',
         imgUrl: src.imgUrl3,
         value: 4
       },
       {
-        name: 'iMac',
+        name: 'iMac3',
         price: '1800',
         description: "27''",
         imgUrl: src.imgUrl2,
         value: 2
       },
       {
-        name: 'SmartTV',
+        name: 'SmartTV3',
         price: '1000',
         description: '42"',
         imgUrl: src.imgUrl1,
         value: 5
       },
       {
-        name: 'iPhone',
+        name: 'iPhone3',
         price: '500',
         description: '6S',
         imgUrl: src.imgUrl3,

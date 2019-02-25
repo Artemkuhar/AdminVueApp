@@ -4,7 +4,7 @@ export default {
     state.showSpinner = true
   },
   [types.GET_PRDUCTS_SUCCESS] (state, payload) {
-    state.list = payload
+    // state.list = payload
     state.showSpinner = false
   },
   [types.GET_PRDUCTS_FAILURE] (state, payload) {
@@ -33,5 +33,9 @@ export default {
   [types.REMOVE_PRODUCT_FAILURE] (state, payload) {
     state.showSpinner = false
     state.errorMesage = payload.error
+  },
+  [types.GET_PRODUCTS_SELECT] (state, payload) {
+    state.showSpinner = false
+    state.selectItems = payload
   }
 }
