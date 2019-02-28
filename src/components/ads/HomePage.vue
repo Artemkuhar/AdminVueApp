@@ -3,7 +3,6 @@
     <p class="page-title">Jayway Сollection </p>
     <div 
     class="basket"
-    @click="sendItem()"
     >
       <v-btn
       to="/basket"
@@ -14,60 +13,93 @@
        <v-icon
         size="45"
         >delete</v-icon>
-        <span class="basket-counter">({{selectItem.length}})</span>
+        <span class="basket-counter">({{items.length}})</span>
       </v-btn>
     </div>
     <div class="catalog">
       <div 
       class="item"
-      v-for="item of ads"
-      :key="item"
+      v-for="(item, index) of listItems"
+      :key="item.name"
       >
         <div class="item-img"><img :src="item.imgUrl" alt=""></div>
         <div class="item-name item-text">{{item.name}}</div>
         <div class="item-descripton item-text">{{item.description}}</div>
         <div class="item-price item-text">{{item.price}}</div>
-         <v-rating      
+         <div class="rating"
+         @click="sendRating"
+         >
+          <v-rating     
             class='ml-0'   
             :value="item.value"
             background-color="black"
             color="blue"
             small
-        ></v-rating>
-        <v-checkbox
-        class="AddItem"
-        label="Add to basket"
-        :value="item"
-        v-model="selectItem"
+          ></v-rating>
+         </div>
+        <div 
+          @click="deleteItem(index)"
+        >
+          <v-checkbox
+          class="AddItem"
+          label="Add to basket"
+          :value="item"
+          v-model="selectItems"
         ></v-checkbox>
+        </div>
+        <Rating :spiner = spiner></Rating>
       </div>
     </div>
+    
   </v-container>
+  
 </template>
 <script>
 import { mapState, mapActions } from 'vuex';
+import Rating from './componentsADS/ratingComponent';
+import * as types from '../../store/mutations.js';
 export default {
+  components: {
+    Rating,
+  },
   data(){
     return{
-      selectItem:[],
-      rating: 4,
+      spiner: false,
+      selectItems: [],
     }
   },
   computed: {
     ...mapState({
-      ads: state => state.ads.list,
+      listItems: state => state.ads.list,
+      items: state => state.ads.selectItems
     }),
   },
+  watch: {
+    selectItems: function () {
+     this.sendSelectItem(this.selectItems)
+  },
+},
   methods: {
   ...mapActions(['sendSelectItem']),
-    sendItem() {
-      this.sendSelectItem(this.selectItem)
+    deleteItem(index){
+      setTimeout(()=>{
+        this.listItems.splice(index, 1);
+      },50)
     },
+    sendRating(){
+      this.spiner = true
+      setTimeout( () => {
+        this.spiner = false;
+      },1000)
+    }
   },
 };
 </script>
 <style scoped>
-
+.rating{
+  width: 150px;
+  height: 15px;
+}
 .basket{
   position: fixed;
   top: 100px;
@@ -83,7 +115,8 @@ export default {
 .AddItem{
   position: absolute;
   right: 10px;
-  bottom: -20px;
+  bottom: 0px;
+  height: 30px;
 }
 .page-title {
   text-align: center;

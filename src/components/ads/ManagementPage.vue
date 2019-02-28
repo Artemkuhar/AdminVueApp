@@ -79,7 +79,7 @@
     <div 
     class="listItem"
     v-for="(item, index) of ads"
-    :key="item"
+    :key="item.name"
     >
       <div class="item"><img :src="item.imgUrl" alt="item Photo"></div>
       <div class="item">{{item.name}}</div>

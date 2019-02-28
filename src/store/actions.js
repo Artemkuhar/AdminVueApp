@@ -1,11 +1,9 @@
 import * as types from './mutations_types';
 
-
 export const getProducts = ({ commit }, payload) => {
   commit(types.GET_PRODUCTS)
   setTimeout(() => {
-    const data = []
-    commit(types.GET_PRDUCTS_SUCCESS, data)
+    commit(types.GET_PRDUCTS_SUCCESS)
   }, 500)
 }
 
@@ -29,7 +27,5 @@ export const removeEl = ({ commit }, index) => {
 
 export const sendSelectItem = ({ commit }, selectItems) => {
   commit(types.GET_PRODUCTS)
-  setTimeout(() => {
-    commit(types.GET_PRODUCTS_SELECT, selectItems)
-  }, 2000)
+  commit(types.GET_PRODUCTS_SELECT, selectItems)
 }

@@ -53,7 +53,6 @@
       </v-toolbar-side-icon>
     </v-toolbar>
     <v-content
-    class='contend'
     >
       <router-view></router-view>
     </v-content>

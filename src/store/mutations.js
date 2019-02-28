@@ -3,8 +3,7 @@ export default {
   [types.GET_PRODUCTS] (state) {
     state.showSpinner = true
   },
-  [types.GET_PRDUCTS_SUCCESS] (state, payload) {
-    // state.list = payload
+  [types.GET_PRDUCTS_SUCCESS] (state) {
     state.showSpinner = false
   },
   [types.GET_PRDUCTS_FAILURE] (state, payload) {
@@ -15,7 +14,7 @@ export default {
     state.showSpinner = true
   },
   [types.CREATE_PRODUCT_SUCCESS] (state, payload) {
-    payload.value = '3'
+    payload.value = 3
     state.list.unshift(payload)
     state.showSpinner = false
   },
