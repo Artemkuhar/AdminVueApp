@@ -22,7 +22,7 @@ export const removeEl = ({ commit }, index) => {
   commit(types.REMOVE_PRODUCT)
   setTimeout(() => {
     commit(types.REMOVE_PRODUCT_SUCCESS, index)
-  }, 2000)
+  }, 500)
 }
 
 export const sendSelectItem = ({ commit }, selectItems) => {

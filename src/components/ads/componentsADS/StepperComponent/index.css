@@ -1,0 +1,11 @@
+.userPayInfo{
+  font-size: 20px;
+}
+.userPayInfo > div{
+  position: relative;
+}
+span{
+  position: absolute;
+  left: 0;
+  margin-left: 100px;
+}

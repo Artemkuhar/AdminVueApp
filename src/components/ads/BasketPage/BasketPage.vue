@@ -19,7 +19,7 @@
     <div 
     class="listItem"
     :class="{'listItem-inactive': spiner }"
-    v-for="(item, index) of selectItems"
+    v-for="(item) of selectItems"
     :key="item.name"
     >
       <div class="item"><img :src="item.imgUrl" alt="item Photo"></div>
@@ -30,19 +30,17 @@
           <v-icon
             class="buy-icon"
             size="45"
-            @click="removeElem(index)"
-            color="#1e90ff"
-        >shopping_cart</v-icon>
+            @click="removeElem(item)"
+        >delete_forever</v-icon>
       </div>
     </div>
     <div
       :class="{'listItem-inactive': spiner }"
     >
-      <div class="buy-all-icon">
+      <div class="buy-all-icon" @click="showStepperWindow()">
         <v-icon
               class="buy-icon"
               size="45"
-              @click="removeElem(index)"
               color="#1e90ff"
           >shopping_cart</v-icon>
           <br>BUY ALL
@@ -51,17 +49,23 @@
           <p>Total sum: {{totalSum}} $</p>
       </div>
     </div>
+    <Stepper class="stepperPayment" :totalSum = totalSum :showStepper = showStepper :onUpdateStepper="updateStepper"></Stepper>
   </v-container>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex';
+import Stepper from '../componentsADS/StepperComponent/stepperComponent';
 
 export default { 
+   components: {
+    Stepper,
+  },
   data() {
     return {
       totalSum: 0,
       spiner: true,
       dialog: true,
+      showStepper: false,
       headers:['Photo', 'Name', 'Descriptions', 'Price', 'Buy'],
     };
   },
@@ -75,9 +79,14 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['createProduct', 'removeEl','getProducts']),
-    removeElem(index) {
-      this.removeEl(index);
+    ...mapActions(['sendSelectItem']),
+    removeElem(item) {
+      this.spiner = true;
+      setTimeout(() => {
+        this.selectItems.splice(item.index, 1);
+        this.spiner = false;
+        this.getTotalSum();
+      },500)
     },
     showSpiner(){
       setTimeout( () => {
@@ -85,73 +94,23 @@ export default {
       },1000)
     },
     getTotalSum(){
-      this.selectItems.forEach((item, i) => this.totalSum += +item.price);
+      let sum = 0;
+      this.selectItems.forEach((item, i) => sum+= +item.price);
+      this.totalSum = sum;
+    },
+    showStepperWindow(){
+      this.showStepper = true
+    },
+    updateStepper(stepStatus){
+      if(stepStatus == 2){
+       this.sendSelectItem()
+       this.totalSum = 0;
+      }
+      this.showStepper = false
     }
   },
- 
 };
 </script>
 <style scoped>
-buy-all
-.buy-icon{
-  margin-top: 40px;
-}
-.buy-all-icon,
-.total-sum{
-  float: right;
-  width: 20%;
-  text-align: center;
-  font-size: 25px;
-}
-.total-sum{
-  margin-top: 40px;
-}
-.buy-icon{
-  margin-top: 40px;
-}
-.page-title {
-  text-align: center;
-  font-size: 38px;
-  color: #1e90ff;
-  font-weight: 400;
-}
-.header,
-.item
-{
-  width: 20%;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-.header-table,
-.listItem
-{
-  display: flex;
-  flex-direction: row;
-  min-width: 500px;
-}
-.listItem{
-  height: 130px;
-  border-top: 1px;
-  border-bottom: 1px;
-  border-left: 0px;
-  border-right: 0px;
-  border-style: solid;
-  border-color: #ccc;
-  line-height: 120px;
-}
-.listItem:hover{
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.listItem-inactive{
-  display: none;
-}
-.item{
-  font-weight: normal;
-}
-img{
-  width: 100%;
-  height: 100%;
-}
-
+@import './index.css';
 </style>

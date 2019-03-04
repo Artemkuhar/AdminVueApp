@@ -146,51 +146,10 @@ export default {
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT';
     },
   },
- 
 };
 </script>
 <style scoped>
-.btnBrowse {
-  height: 45px;
-  width: 70px;
-  border: 1px solid #ccc;
-}
-.header,
-.item
-{
-  width: 20%;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-.header-table,
-.listItem
-{
-  display: flex;
-  flex-direction: row;
-  min-width: 500px;
-}
-.listItem{
-  height: 130px;
-  border-top: 1px;
-  border-bottom: 1px;
-  border-left: 0px;
-  border-right: 0px;
-  border-style: solid;
-  border-color: #ccc;
-  line-height: 120px;
-}
-.listItem:hover{
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.item{
-  font-weight: normal;
-}
-img{
-  width: 100%;
-  height: 100%;
-}
-
+@import './index.css';
 </style>
 
 

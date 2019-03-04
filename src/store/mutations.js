@@ -35,6 +35,10 @@ export default {
   },
   [types.GET_PRODUCTS_SELECT] (state, payload) {
     state.showSpinner = false
-    state.selectItems = payload
+    if (payload) {
+      state.selectItems = payload
+    } else {
+      state.selectItems = []
+    }
   }
 }
