@@ -44,7 +44,6 @@
   margin: 20px;
   transition: all .5s;
   background: white;
-  float: left;
 }
 .item:hover{
   box-shadow: 0 0 70px rgba(0, 0, 0, 1);
@@ -65,4 +64,9 @@ img{
 .basket-counter{
   font-size: 20px;
   font-weight: 500;
+}
+.icon-details{
+  position: absolute;
+  right: 10px;
+  bottom: 30px;
 }

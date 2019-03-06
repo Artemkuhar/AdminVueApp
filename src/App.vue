@@ -17,7 +17,6 @@
           <v-list-tile-action>
             <v-icon>{{link.icon}}</v-icon>
           </v-list-tile-action>
-
           <v-list-tile-content>
             <v-list-tile-title v-text="link.title"></v-list-tile-title>
           </v-list-tile-content>
@@ -37,8 +36,6 @@
         class="mr-4"
         >Jayway</v-toolbar-title>
       </v-btn>
-      
-
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
           flat
@@ -47,13 +44,11 @@
           :to='link.url'
         >{{link.title}}</v-btn>
       </v-toolbar-items>
-      <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="changeDrawerValue">Shop
-        <v-icon>arrow_drop_down</v-icon>
-      </v-toolbar-side-icon>
+      <div  class="toolbar-title" @click="showDrawer">
+        <v-icon size='34' color="black">vertical_split</v-icon>
+      </div>
     </v-toolbar>
-    <v-content
-    >
+    <v-content>
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -71,7 +66,7 @@ export default {
     };
   },
   methods: {
-    changeDrawerValue() {
+    showDrawer() {
       this.drawer = !this.drawer;
     },
   },
@@ -93,5 +88,12 @@ background-repeat: no-repeat;
 background-size: 100%;
 opacity: 0.15;
 position: absolute;
+}
+.toolbar-title{
+  position: absolute;
+  right: 25px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
 }
 </style>

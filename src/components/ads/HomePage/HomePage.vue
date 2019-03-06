@@ -1,6 +1,7 @@
 <template>
 <v-container>
     <p class="page-title">Jayway Сollection </p>
+    <Card :itemCard="itemCard" :showCard="showCard" :onUpdateCard="onUpdateCard"></Card>
     <div 
     class="basket"
     >
@@ -19,7 +20,7 @@
     <div class="catalog">
       <div 
       class="item"
-      v-for="(item) of listItems"
+      v-for=" item of listItems"
       :key="item.name"
       >
         <div class="item-img"><img :src="item.imgUrl" alt=""></div>
@@ -45,28 +46,33 @@
           label="Add to basket"
           :value="item"
           v-model="selectItems"
-          
         ></v-checkbox>
+        <v-icon
+            class="icon-details"
+            size="55"
+            @click="showItemDetails(item)"
+        >slideshow</v-icon>
         </div>
         <Rating :spiner = spiner></Rating>
       </div>
     </div>
-    
   </v-container>
-  
 </template>
 <script>
 import { mapState, mapActions } from 'vuex';
 import Rating from '../componentsADS/RatingComponent/ratingComponent';
+import Card from '../componentsADS/CardComponents/cardComponent';
 export default {
   components: {
     Rating,
+    Card,
   },
   data(){
     return{
-      e6: 1,
       spiner: false,
       selectItems:[],
+      showCard: false,
+      itemCard: {}
     }
   },
   mounted() {
@@ -85,11 +91,18 @@ export default {
 },
   methods: {
   ...mapActions(['sendSelectItem']),
-    sendRating(){
+    sendRating() {
       this.spiner = true
       setTimeout( () => {
         this.spiner = false;
       },1000)
+    },
+    showItemDetails(item){
+      this.itemCard = item;
+      this.showCard = true;
+    },
+    onUpdateCard(){
+      this.showCard = false;
     }
   },
 };

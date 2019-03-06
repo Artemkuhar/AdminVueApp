@@ -33,9 +33,6 @@ export default {
     this.getProducts();
   },
   methods: {
-    changeDialogValue() {
-      this.dialog = !dialog;
-    },
     ...mapActions(['getProducts']),
   },
   computed: {

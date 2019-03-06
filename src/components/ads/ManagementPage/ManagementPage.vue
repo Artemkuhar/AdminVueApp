@@ -1,70 +1,51 @@
 <template>
   <v-container>
     <v-form
-      ref="form"
-    >
-      <v-layout row>
-        <v-flex xs6>
-          <v-text-field
-            v-model="itemName"
-            label="Name"
-            outline
-            class="mr-3"
-            required
-          ></v-text-field>
-        </v-flex>
-
-        <v-flex xs6>
-          <v-text-field
-            v-model="itemPrice"
-            label="Price"
-            outline
-            class="ml-3"
-            required
-            type="number"
-          >
-          </v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs6>
-          <v-text-field
-            v-model="itemDescription"
-            label="Description"
-            outline
-            class="mr-3"
-            upload
-            required
-          ></v-text-field>
-        </v-flex>
-
-        <v-flex xs4>
-          <v-text-field
-            label="Press the button(URL--->)"
-            outline
-            class="ml-3"
-            upload
-            v-model='itemImgUrl'
-            required
-            readonly
-          ></v-text-field>
-        </v-flex>
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
+        <v-text-field
+          v-model="itemName"
+          :counter="10"
+          :rules="nameRules"
+          label="Device name"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="itemPrice"
+          :rules="priceRules"
+          :counter="4"
+          label="Price"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="itemDescription"
+          :rules="descriptionRules"
+          :counter="10"
+          label="Description"
+          required
+        ></v-text-field>
+        <v-select
+          v-model="itemImgUrl"
+          :items="imgitems"
+          :rules="[v => !!v || 'Logo is required']"
+          label="Logo device"
+          required
+        ></v-select>
         <v-btn
-          class=" btnBrowse ml-3"
-          @click="addImgLink"
-        >Browse</v-btn>
-      </v-layout>
-      <v-btn
-        class="info"
-        @click="adNewProd"
-        :disabled="disabled"
-      >Add new item</v-btn>
+          :disabled="!valid"
+          class="info submit-btn"
+          @click="validate"
+        >
+          Add new item
+        </v-btn>
+      </v-form>
       <v-progress-linear 
         :indeterminate="true" 
         v-show='showSpinner'
       ></v-progress-linear>
       <br><br>
-    </v-form>
     <hr class="mb-3">
     <div class="header-table">
       <div 
@@ -88,10 +69,9 @@
       <div class="item">
           <v-icon
             size="25"
-            @click="removeElem(index)"
+            @click="removeItem(index)"
         >delete</v-icon>
-      </div>
-       
+      </div>  
     </div>
   </v-container>
 </template>
@@ -99,17 +79,12 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
-
   computed: {
     ...mapState({
       ads: state => state.ads.list,
       showSpinner: state => state.ads.showSpinner,
     }),
-     disabled() {
-      return !this.itemName || !this.itemPrice ||!this.itemDescription || !this.itemImgUrl;
-    },
   },
-  
   data() {
     return {
       headers:['Photo', 'Name', 'Descriptions', 'Price', 'Delete'],
@@ -117,10 +92,25 @@ export default {
       itemPrice: '',
       itemDescription: '',
       itemImgUrl: '',
+      imgitems:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT'],
+      valid: true,
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      ],
+      priceRules: [
+        v => !!v || 'Price is required',
+        v => /^\d+$/.test(v) || 'Price isn`t  valid',
+        v => (v && v.length <= 4) || 'Price must be less than 4 characters'
+      ],
+      descriptionRules:[
+        v => !!v || 'description is required',
+        v => (v && v.length <= 10) || 'description must be less than 10 characters'
+      ],
     };
   },
   methods: {
-...mapActions(['createProduct', 'removeEl','getProducts']),
+...mapActions(['createProduct', 'removeProducts','getProducts']),
     clearFormFields() {
       this.itemName = '';
       this.itemPrice = '';
@@ -137,14 +127,15 @@ export default {
       this.createProduct(obj);
       this.clearFormFields();
     },
-    removeElem(index) {
-      this.removeEl(index);
+    removeItem(index) {
+      this.removeProducts(index);
     },
-
-    addImgLink() {
-      this.itemImgUrl =
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT';
-    },
+    validate () {
+        if (this.$refs.form.validate()) {
+          this.adNewProd()
+          this.$refs.form.reset()
+        }
+      },
   },
 };
 </script>

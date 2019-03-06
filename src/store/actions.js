@@ -18,7 +18,7 @@ export const createProduct = ({ commit }, payload) => {
   }, 1000)
 }
 
-export const removeEl = ({ commit }, index) => {
+export const removeProducts = ({ commit }, index) => {
   commit(types.REMOVE_PRODUCT)
   setTimeout(() => {
     commit(types.REMOVE_PRODUCT_SUCCESS, index)

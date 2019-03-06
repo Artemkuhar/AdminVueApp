@@ -1,0 +1,17 @@
+.card{
+  position: fixed;
+  top:100px;
+  left: 0;
+  z-index: 1;
+}
+.shut-btn{
+ position: absolute;
+ top: 0;
+ right: 0;
+ width: 26px;
+ height: 26px;
+ background-color: red;
+ border: 1px solid ;
+ border-top: 50%;
+ cursor: pointer;
+}

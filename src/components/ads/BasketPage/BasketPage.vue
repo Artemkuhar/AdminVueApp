@@ -19,7 +19,7 @@
     <div 
     class="listItem"
     :class="{'listItem-inactive': spiner }"
-    v-for="(item) of selectItems"
+    v-for="(item, index) of selectItems"
     :key="item.name"
     >
       <div class="item"><img :src="item.imgUrl" alt="item Photo"></div>
@@ -30,7 +30,7 @@
           <v-icon
             class="buy-icon"
             size="45"
-            @click="removeElem(item)"
+            @click="removeElem(item, index)"
         >delete_forever</v-icon>
       </div>
     </div>
@@ -49,7 +49,7 @@
           <p>Total sum: {{totalSum}} $</p>
       </div>
     </div>
-    <Stepper class="stepperPayment" :totalSum = totalSum :showStepper = showStepper :onUpdateStepper="updateStepper"></Stepper>
+    <Stepper class="stepperPayment" :totalSum="totalSum" :showStepper="showStepper" :onUpdateStepper="updateStepper"></Stepper>
   </v-container>
 </template>
 <script>
@@ -80,10 +80,10 @@ export default {
   },
   methods: {
     ...mapActions(['sendSelectItem']),
-    removeElem(item) {
+    removeElem(item,index) {
       this.spiner = true;
       setTimeout(() => {
-        this.selectItems.splice(item.index, 1);
+        this.selectItems.splice(index, 1);
         this.spiner = false;
         this.getTotalSum();
       },500)
