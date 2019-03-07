@@ -1,5 +1,7 @@
 <template>
-  <v-app>
+  <v-app
+  >
+  <div class='backgroundImg'></div>
     <v-navigation-drawer
       app
       right
@@ -15,7 +17,6 @@
           <v-list-tile-action>
             <v-icon>{{link.icon}}</v-icon>
           </v-list-tile-action>
-
           <v-list-tile-content>
             <v-list-tile-title v-text="link.title"></v-list-tile-title>
           </v-list-tile-content>
@@ -23,11 +24,18 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app>
-      <v-toolbar-title
+      <v-btn
+      to="/"
+      flat: false
+      outline
+      color="white"
+      class="btn-title"
+      >
+        <v-toolbar-title
         id='title'
         class="mr-4"
-      >Jayway</v-toolbar-title>
-
+        >Jayway</v-toolbar-title>
+      </v-btn>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
           flat
@@ -36,10 +44,9 @@
           :to='link.url'
         >{{link.title}}</v-btn>
       </v-toolbar-items>
-      <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="changeDrawerValue">Shop
-        <v-icon>arrow_drop_down</v-icon>
-      </v-toolbar-side-icon>
+      <div  class="toolbar-title" @click="showDrawer">
+        <v-icon size='34' color="black">vertical_split</v-icon>
+      </div>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
@@ -53,21 +60,40 @@ export default {
     return {
       drawer: false,
       links: [
-        { title: 'Home', icon: 'grade', url: '/Home' },
-        { title: 'Manage Products', icon: 'grade', url: 'ManageProducts' },
+        { title: 'Home', icon: 'grade', url: 'home' },
+        { title: 'Management', icon: 'grade', url: 'management' },
       ],
     };
   },
   methods: {
-    changeDrawerValue() {
+    showDrawer() {
       this.drawer = !this.drawer;
     },
   },
 };
 </script>
 <style scoped>
+.btn-title{
+  border: 0px;
+}
 #title {
   color: #1e90ff;
+  cursor: pointer;
+}
+.backgroundImg{
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ZUzzZoix0JlvDhneCWfi8qxdmN7VA_bdPSp0wDjgYhTg6I8HHw);
+width: 100%;
+height: 100%;
+background-repeat: no-repeat;
+background-size: 100%;
+opacity: 0.15;
+position: absolute;
+}
+.toolbar-title{
+  position: absolute;
+  right: 25px;
+  font-size: 20px;
+  font-weight: 400;
   cursor: pointer;
 }
 </style>

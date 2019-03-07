@@ -3,8 +3,7 @@ export default {
   [types.GET_PRODUCTS] (state) {
     state.showSpinner = true
   },
-  [types.GET_PRDUCTS_SUCCESS] (state, payload) {
-    state.list = payload
+  [types.GET_PRDUCTS_SUCCESS] (state) {
     state.showSpinner = false
   },
   [types.GET_PRDUCTS_FAILURE] (state, payload) {
@@ -15,9 +14,9 @@ export default {
     state.showSpinner = true
   },
   [types.CREATE_PRODUCT_SUCCESS] (state, payload) {
-    state.list.push(payload)
+    payload.value = 3
+    state.list.unshift(payload)
     state.showSpinner = false
-    console.log(payload)
   },
   [types.CREATE_PRODUCT_FAILURE] (state, payload) {
     state.showSpinner = false
@@ -33,5 +32,13 @@ export default {
   [types.REMOVE_PRODUCT_FAILURE] (state, payload) {
     state.showSpinner = false
     state.errorMesage = payload.error
+  },
+  [types.GET_PRODUCTS_SELECT] (state, payload) {
+    state.showSpinner = false
+    if (payload) {
+      state.selectItems = payload
+    } else {
+      state.selectItems = []
+    }
   }
 }

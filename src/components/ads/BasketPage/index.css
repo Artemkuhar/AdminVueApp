@@ -1,0 +1,70 @@
+.buy-icon{
+  margin-top: 40px;
+}
+.buy-all-icon,
+.total-sum{
+  float: right;
+  width: 20%;
+  text-align: center;
+  font-size: 25px;
+}
+.buy-all-icon{
+  cursor: pointer;
+}
+.total-sum{
+  margin-top: 40px;
+}
+.buy-icon{
+  margin-top: 40px;
+}
+.page-title {
+  text-align: center;
+  font-size: 38px;
+  color: #1e90ff;
+  font-weight: 400;
+}
+.header,
+.item
+{
+  width: 20%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.header-table,
+.listItem
+{
+  display: flex;
+  flex-direction: row;
+  min-width: 500px;
+}
+.listItem{
+  height: 130px;
+  border-top: 1px;
+  border-bottom: 1px;
+  border-left: 0px;
+  border-right: 0px;
+  border-style: solid;
+  border-color: #ccc;
+  line-height: 120px;
+}
+.listItem:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.listItem-active{
+  display: none;
+}
+.item{
+  font-weight: normal;
+}
+img{
+  width: 100%;
+  height: 100%;
+}
+.stepper-payment{
+  width: 500px;
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  margin-left: -250px
+}
