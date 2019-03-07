@@ -18,7 +18,7 @@
     <hr class="mb-3">
     <div 
     class="listItem"
-    :class="{'listItem-inactive': spiner }"
+    :class="{'listItem-active': spiner }"
     v-for="(item, index) of selectItems"
     :key="item.name"
     >
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      :class="{'listItem-inactive': spiner }"
+      :class="{'listItem-active': spiner }"
     >
       <div class="buy-all-icon" @click="showStepperWindow()">
         <v-icon
@@ -49,7 +49,7 @@
           <p>Total sum: {{totalSum}} $</p>
       </div>
     </div>
-    <Stepper class="stepperPayment" :totalSum="totalSum" :showStepper="showStepper" :onUpdateStepper="updateStepper"></Stepper>
+    <Stepper class="stepper-payment" :totalSum="totalSum" :showStepper="showStepper" :onUpdateStepper="updateStepper"></Stepper>
   </v-container>
 </template>
 <script>

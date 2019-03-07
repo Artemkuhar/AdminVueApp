@@ -51,7 +51,7 @@
 .listItem:hover{
   background-color: rgba(0, 0, 0, 0.1);
 }
-.listItem-inactive{
+.listItem-active{
   display: none;
 }
 .item{
@@ -61,7 +61,7 @@ img{
   width: 100%;
   height: 100%;
 }
-.stepperPayment{
+.stepper-payment{
   width: 500px;
   position: fixed;
   top: 200px;

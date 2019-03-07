@@ -15,7 +15,7 @@
             Stereo speakers tuned by AKG
             Surround sound with Dolby Atmos technology (Dolby Digital, Dolby Digital Plus included)
             Ultra High Quality Audio Playback
-            UHQ 32-bit & DSD support PCM: Up to 32 bits
+            UHQ 32-bit  DSD support PCM: Up to 32 bits
             DSD: DSD64/128 9
             Audio playback format
             MP3, M4A, 3GA, AAC, OGG, OGA, WAV, WMA, AMR, AWB, FLAC, MID, MIDI, XMF, MXMF, IMY, RTTTL, RTX, OTA, APE, DSF, DFF

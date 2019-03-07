@@ -8,17 +8,19 @@
       <div class="mb-5 qwe" height="200px">
             <v-text-field
             v-model="user.name"
-            :counter="10"
+            :rules="[v => !!v || 'Name is required']"
             label="Name"
             required
           ></v-text-field>
           <v-text-field
             v-model="user.email"
+            :rules="[v => !!v || 'email is required']"
             label="E-mail"
             required
           ></v-text-field>
           <v-select
             v-model="user.selectCard"
+            :rules="[v => !!v || 'Banking card is required']"
             :items="cardList"
             label="Banking card"
             required
