@@ -1,6 +1,6 @@
 <template>
-  <v-stepper v-model="e6" vertical v-show="showStepper">
-    <v-stepper-step :complete="e6 > 1" step="1">
+  <v-stepper v-model="stepperCounter" vertical v-show="showStepper">
+    <v-stepper-step :complete="stepperCounter > 1" step="1">
       Fill in the details for payment
       <small>Сheck the data is correct</small>
     </v-stepper-step>
@@ -26,10 +26,10 @@
             required
           ></v-select>
       </div>
-      <v-btn color="primary" @click="e6 = 2" :disabled = disabled>Continue</v-btn>
+      <v-btn color="primary" @click="stepperCounter = 2" :disabled = disabled>Continue</v-btn>
       <v-btn flat  @click="updateStepper">Cancel</v-btn>
     </v-stepper-content>
-    <v-stepper-step :complete="e6 > 2" step="2">Сheck the data is correct</v-stepper-step>
+    <v-stepper-step :complete="stepperCounter > 2" step="2">Сheck the data is correct</v-stepper-step>
     <v-stepper-content step="2">
       <div class="userPayInfo pb-3" height="200px">
         <div>Name: <span>{{user.name}}</span></div>
@@ -38,7 +38,7 @@
         <div>Total price: <span>{{totalSum}} $</span></div>
       </div>
       <v-btn color="primary" @click="updateStepper">Send money</v-btn>
-      <v-btn flat @click="e6 = 1">Cancel</v-btn>
+      <v-btn flat @click="stepperCounter = 1">Cancel</v-btn>
     </v-stepper-content>
   </v-stepper>
 </template>
@@ -62,7 +62,7 @@ export default {
   },
   data(){
     return {
-      e6: 1,
+      stepperCounter: 1,
       cardList: [
         '2134 2343 1412 4312',
         '7134 2343 1412 4332',
@@ -78,8 +78,8 @@ export default {
   },
   methods:{
     updateStepper(){
-      this.onUpdateStepper(this.e6)
-      this.e6 = 1,
+      this.onUpdateStepper(this.stepperCounter)
+      this.stepperCounter = 1,
       this.user.name = '',
       this.user.email = '',
       this.user.selectCard = ''

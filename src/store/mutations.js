@@ -3,8 +3,9 @@ export default {
   [types.GET_PRODUCTS] (state) {
     state.showSpinner = true
   },
-  [types.GET_PRDUCTS_SUCCESS] (state) {
+  [types.GET_PRDUCTS_SUCCESS] (state, payload) {
     state.showSpinner = false
+    state.list = payload
   },
   [types.GET_PRDUCTS_FAILURE] (state, payload) {
     state.showSpinner = false
@@ -26,7 +27,8 @@ export default {
     state.showSpinner = true
   },
   [types.REMOVE_PRODUCT_SUCCESS] (state, payload) {
-    state.list.splice(payload, 1)
+    state.list.splice(payload.index, 1)
+    state.selectItems = state.selectItems.filter((item) => item !== payload.item)
     state.showSpinner = false
   },
   [types.REMOVE_PRODUCT_FAILURE] (state, payload) {
@@ -35,10 +37,6 @@ export default {
   },
   [types.GET_PRODUCTS_SELECT] (state, payload) {
     state.showSpinner = false
-    if (payload) {
-      state.selectItems = payload
-    } else {
-      state.selectItems = []
-    }
+    state.selectItems = payload || []
   }
 }

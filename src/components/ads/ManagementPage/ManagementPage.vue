@@ -69,7 +69,7 @@
       <div class="item">
           <v-icon
             size="25"
-            @click="removeItem(index)"
+            @click="removeItem(item, index)"
         >delete</v-icon>
       </div>  
     </div>
@@ -79,6 +79,9 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+   mounted() {
+    this.getProducts();
+  },
   computed: {
     ...mapState({
       ads: state => state.ads.list,
@@ -125,10 +128,14 @@ export default {
         imgUrl: this.itemImgUrl,
       };
       this.createProduct(obj);
-      this.clearFormFields();
+      this.getProducts()
     },
-    removeItem(index) {
-      this.removeProducts(index);
+    removeItem(item, index) {
+      const payload = {
+        item: item,
+        index: index
+      }
+      this.removeProducts(payload);
     },
     validate () {
         if (this.$refs.form.validate()) {

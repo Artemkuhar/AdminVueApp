@@ -76,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    this.getProducts();
     this.selectItems = this.items;
   },
   computed: {
@@ -90,7 +91,7 @@ export default {
   },
 },
   methods: {
-  ...mapActions(['sendSelectItem']),
+  ...mapActions(['sendSelectItem', 'getProducts']),
     sendRating() {
       this.spiner = true
       setTimeout( () => {
