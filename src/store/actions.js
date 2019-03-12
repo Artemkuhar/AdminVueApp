@@ -1,10 +1,24 @@
-import * as types from './mutations_types';
+import * as types from './mutations_types'
+// import axios from 'axios';
+import list from '../store/image.json'
 
-export const getProducts = ({ commit }, payload) => {
+export const getProducts = async ({ commit }, payload) => {
   commit(types.GET_PRODUCTS)
-  setTimeout(() => {
-    commit(types.GET_PRDUCTS_SUCCESS)
-  }, 500)
+  // function getProductsApi () {
+  //   return axios.get(url)
+  //     .then(res => res)
+  //     .catch(err => {
+  //       return console.log('error')
+  //     })
+  // }
+  try {
+    const res = list.list
+    setTimeout(() => {
+      commit(types.GET_PRDUCTS_SUCCESS, res)
+    }, 300)
+  } catch (err) {
+    console.log('error')
+  }
 }
 
 export const createProduct = ({ commit }, payload) => {
@@ -15,7 +29,7 @@ export const createProduct = ({ commit }, payload) => {
       id: Math.random()
     }
     commit(types.CREATE_PRODUCT_SUCCESS, data)
-  }, 1000)
+  }, 500)
 }
 
 export const removeProducts = ({ commit }, index) => {

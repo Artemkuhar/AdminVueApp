@@ -57,9 +57,9 @@ img{
   border-radius: 7px;
 }
 .item-text{
+  margin: 0px 0px 0px 20px;
   font-size: 15px;
   font-weight: 500;
-  margin-left: 20px;
 }
 .basket-counter{
   font-size: 20px;
