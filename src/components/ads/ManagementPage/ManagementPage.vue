@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-form
+    <section>
+      <v-form
         ref="form"
         v-model="valid"
         lazy-validation
@@ -37,49 +38,56 @@
           :disabled="!valid"
           class="info submit-btn"
           @click="validate"
-        >
-          Add new item
-        </v-btn>
+        >Add new item</v-btn>
       </v-form>
-      <v-progress-linear 
-        :indeterminate="true" 
-        v-show='showSpinner'
+      <v-progress-linear
+        :indeterminate="true"
+        v-show="showSpinner"
       ></v-progress-linear>
-      <br><br>
-    <hr class="mb-3">
-    <div class="header-table">
-      <div 
-      class="header"
-       v-for="header in headers"
-      :key="header"
-      >
-      <p class="header-name">{{header}}</p>
+      <br>
+      <br>
+    </section>
+    <section>
+      <hr class="mb-3">
+      <div class="header-table">
+        <div
+          class="header"
+          v-for="header in headers"
+          :key="header"
+        >
+          <p class="header-name">{{header}}</p>
+        </div>
       </div>
-    </div>
-    <hr class="mb-3">
-    <div 
-    class="listItem"
-    v-for="(item, index) of ads"
-    :key="item.name"
-    >
-      <div class="item"><img :src="item.imgUrl" alt="item Photo"></div>
-      <div class="item">{{item.name}}</div>
-      <div class="item">{{item.description}}</div>
-      <div class="item">{{item.price}}</div>
-      <div class="item">
+      <hr class="mb-3">
+      <div
+        class="listItem"
+        v-for="(item, index) of ads"
+        :key="item.name"
+      >
+        <div class="item">
+          <img
+            :src="item.imgUrl"
+            alt="item Photo"
+          >
+        </div>
+        <p class="item">{{item.name}}</p>
+        <p class="item">{{item.description}}</p>
+        <p class="item">{{item.price}}</p>
+        <div class="item">
           <v-icon
             size="25"
             @click="removeItem(item, index)"
-        >delete</v-icon>
-      </div>  
-    </div>
+          >delete</v-icon>
+        </div>
+      </div>
+    </section>
   </v-container>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex';
 
 export default {
-   mounted() {
+  mounted() {
     this.getProducts();
   },
   computed: {
@@ -90,30 +98,29 @@ export default {
   },
   data() {
     return {
-      headers:['Photo', 'Name', 'Descriptions', 'Price', 'Delete'],
+      headers: ['Photo', 'Name', 'Descriptions', 'Price', 'Delete'],
       itemName: '',
       itemPrice: '',
       itemDescription: '',
       itemImgUrl: '',
-      imgitems:['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT'],
-      valid: true,
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      imgitems: [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCw-6w3lOFM5ORU2BYxGbFp6G2XogJr0z6pob7IkvrN9r3klT',
       ],
+      valid: true,
+      nameRules: [v => !!v || 'Name is required', v => (v && v.length <= 10) || 'Name must be less than 10 characters'],
       priceRules: [
         v => !!v || 'Price is required',
         v => /^\d+$/.test(v) || 'Price isn`t  valid',
-        v => (v && v.length <= 4) || 'Price must be less than 4 characters'
+        v => (v && v.length <= 4) || 'Price must be less than 4 characters',
       ],
-      descriptionRules:[
+      descriptionRules: [
         v => !!v || 'description is required',
-        v => (v && v.length <= 10) || 'description must be less than 10 characters'
+        v => (v && v.length <= 10) || 'description must be less than 10 characters',
       ],
     };
   },
   methods: {
-...mapActions(['createProduct', 'removeProducts','getProducts']),
+    ...mapActions(['createProduct', 'removeProducts', 'getProducts']),
     clearFormFields() {
       this.itemName = '';
       this.itemPrice = '';
@@ -128,21 +135,21 @@ export default {
         imgUrl: this.itemImgUrl,
       };
       this.createProduct(obj);
-      this.getProducts()
+      this.getProducts();
     },
     removeItem(item, index) {
       const payload = {
         item: item,
-        index: index
-      }
+        index: index,
+      };
       this.removeProducts(payload);
     },
-    validate () {
-        if (this.$refs.form.validate()) {
-          this.adNewProd()
-          this.$refs.form.reset()
-        }
-      },
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.adNewProd();
+        this.$refs.form.reset();
+      }
+    },
   },
 };
 </script>

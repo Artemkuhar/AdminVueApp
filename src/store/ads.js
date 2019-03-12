@@ -1,6 +1,5 @@
-import * as actions from './actions';
-import mutations from './mutations';
-import * as src from './image.json';
+import * as actions from './actions'
+import mutations from './mutations'
 export default {
   state: {
     showSpinner: false,

@@ -1,4 +1,4 @@
-import * as types from './mutations_types';
+import * as types from './mutations_types'
 // import axios from 'axios';
 import list from '../store/image.json'
 

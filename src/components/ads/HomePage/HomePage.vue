@@ -1,61 +1,70 @@
 <template>
-<v-container>
-    <p class="page-title">Jayway Сollection </p>
-    <Card :itemCard="itemCard" :showCard="showCard" :onUpdateCard="onUpdateCard"></Card>
-    <div 
-    class="basket"
-    >
-      <v-btn
-      to="/basket"
-      outline
-      class="basket-btn"
-      flat: false
-      >
-       <v-icon
-        size="45"
-        >shopping_cart</v-icon>
-        <span class="basket-counter">({{items.length}})</span>
-      </v-btn>
-    </div>
-    <div class="catalog">
-      <div 
-      class="item"
-      v-for=" item of listItems"
-      :key="item.name"
-      >
-        <div class="item-img"><img :src="item.imgUrl" alt=""></div>
-        <div class="item-name item-text">{{item.name}}</div>
-        <div class="item-descripton item-text">{{item.description}}</div>
-        <div class="item-price item-text">{{item.price}}</div>
-         <div class="rating"
-         @click="sendRating"
-         >
-          <v-rating     
-            class='ml-0'   
-            :value="item.value"
-            background-color="black"
-            color="blue"
-            small
-          ></v-rating>
-         </div>
-        <div 
-          class="checkboxWrap"
-        >
-          <v-checkbox
-          class="AddItem"
-          label="Add to basket"
-          :value="item"
-          v-model="selectItems"
-        ></v-checkbox>
-        <v-icon
-            class="icon-details"
-            size="55"
-            @click="showItemDetails(item)"
-        >slideshow</v-icon>
+  <v-container>
+    <header>
+      <h1 class="page-title">Jayway Сollection</h1>
+    </header>
+    <Card :onUpdateCard="onUpdateCard"></Card>
+    <main>
+      <section>
+        <div class="basket">
+          <v-btn
+            to="/basket"
+            outline
+            class="basket-btn"
+            flat:
+            false
+          >
+            <v-icon size="45">shopping_cart</v-icon>
+            <span class="basket-counter">({{items.length}})</span>
+          </v-btn>
         </div>
-        <Rating :spiner = spiner></Rating>
-      </div>
-    </div>
+      </section>
+      <section>
+        <div class="catalog">
+          <div
+            class="item"
+            v-for=" item of listItems"
+            :key="item.name"
+          >
+            <div class="item-img">
+              <img
+                :src="item.imgUrl"
+                alt
+              >
+            </div>
+            <p class="item-name item-text">{{item.name}}</p>
+            <p class="item-descripton item-text">{{item.description}}</p>
+            <p class="item-price item-text">{{item.price}}$</p>
+            <div
+              class="rating"
+              @click="sendRating"
+            >
+              <v-rating
+                class="ml-0"
+                :value="item.value"
+                background-color="black"
+                color="blue"
+                small
+              ></v-rating>
+            </div>
+            <div class="checkboxWrap">
+              <v-checkbox
+                class="AddItem"
+                label="Add to basket"
+                :value="item"
+                v-model="selectItems"
+              ></v-checkbox>
+              <v-icon
+                class="icon-details"
+                size="55"
+                @click="showItemDetails(item)"
+              >slideshow</v-icon>
+            </div>
+            <Rating></Rating>
+          </div>
+        </div>
+      </section>
+    </main>
   </v-container>
 </template>
 <script>
@@ -67,13 +76,13 @@ export default {
     Rating,
     Card,
   },
-  data(){
-    return{
+  data() {
+    return {
       spiner: false,
-      selectItems:[],
+      selectItems: [],
       showCard: false,
-      itemCard: {}
-    }
+      itemCard: {},
+    };
   },
   mounted() {
     this.getProducts();
@@ -82,29 +91,29 @@ export default {
   computed: {
     ...mapState({
       listItems: state => state.ads.list,
-      items: state => state.ads.selectItems
+      items: state => state.ads.selectItems,
     }),
   },
   watch: {
-    selectItems: function () {
-     this.sendSelectItem(this.selectItems)
-  },
-},
-  methods: {
-  ...mapActions(['sendSelectItem', 'getProducts']),
-    sendRating() {
-      this.spiner = true
-      setTimeout( () => {
-        this.spiner = false;
-      },1000)
+    selectItems: function() {
+      this.sendSelectItem(this.selectItems);
     },
-    showItemDetails(item){
+  },
+  methods: {
+    ...mapActions(['sendSelectItem', 'getProducts']),
+    sendRating() {
+      this.spiner = true;
+      setTimeout(() => {
+        this.spiner = false;
+      }, 1000);
+    },
+    showItemDetails(item) {
       this.itemCard = item;
       this.showCard = true;
     },
-    onUpdateCard(){
+    onUpdateCard() {
       this.showCard = false;
-    }
+    },
   },
 };
 </script>

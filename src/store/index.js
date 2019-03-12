@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import ads from './ads';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import ads from './ads'
 
 Vue.use(Vuex)
 
